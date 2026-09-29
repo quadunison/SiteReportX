@@ -46,3 +46,18 @@ SiteReportX 프로젝트의 신속한 기능 고도화와 UI/UX 개선을 위해
 ## 4. Git 협업 규칙
 - `main` 브랜치는 항상 프로덕션 빌드가 완료된 정상 동작 상태를 유지.
 - 기능별 작업 브랜치(`feat/`, `fix/`, `design/`) 생성 후 Pull Request(PR)를 통한 코드 리뷰 및 병합 권장.
+
+---
+
+## 5. 저장소 푸시 완료 및 팀원 초대 안내
+- **푸시 완료 일시**: 2026-09-30
+- **원격 저장소 URL**: [https://github.com/quadunison/SiteReportX](https://github.com/quadunison/SiteReportX)
+- **팀원(개발자, 디자이너) 공유 절차**:
+  1. GitHub [https://github.com/quadunison/SiteReportX/settings/access](https://github.com/quadunison/SiteReportX/settings/access) 에 접속
+  2. 개발자 및 디자이너의 GitHub 아이디를 **Collaborators**로 초대
+  3. 팀원들에게 아래 클론 안내 메시지를 전달:
+     ```bash
+     git clone https://github.com/quadunison/SiteReportX.git
+     ```
+  4. 이후 각 팀원은 `README.md` 가이드에 따라 5분 이내 온보딩 가능
+

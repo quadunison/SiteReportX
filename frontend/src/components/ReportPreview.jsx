@@ -71,9 +71,9 @@ export default function ReportPreview({ project, onGenerateReport }) {
               <span style={{ 
                 background: isActive ? 'rgba(255,255,255,0.22)' : 'var(--bg-main)', 
                 color: isActive ? '#FFFFFF' : 'var(--text-dim)',
-                padding: '2px 7px', 
+                padding: '2px 8px', 
                 borderRadius: '9999px',
-                fontSize: '11px',
+                fontSize: '12px',
                 fontWeight: 700 
               }}>
                 {count}건 {defectCount > 0 && <span style={{ color: isActive ? '#FECACA' : 'var(--danger-text)' }}>({defectCount})</span>}
@@ -140,7 +140,7 @@ export default function ReportPreview({ project, onGenerateReport }) {
                             />
                           </div>
                         ) : (
-                          <span style={{ color: 'var(--text-muted)', fontSize: '11px' }}>(이미지 추출 대기 중)</span>
+                          <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>(이미지 추출 대기 중)</span>
                         )}
                       </td>
 

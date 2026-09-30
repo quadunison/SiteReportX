@@ -201,7 +201,7 @@ export default function InspectionWorkspace({ project, onProjectUpdated, onOpenR
               <span style={{ fontSize: '14px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <ZoomIn size={16} /> 캡처된 명판 사진
               </span>
-              <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
+              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                 마우스 오버 시 돋보기 확대
               </span>
             </div>
@@ -225,19 +225,19 @@ export default function InspectionWorkspace({ project, onProjectUpdated, onOpenR
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-muted)' }}>
                   <ImageIcon size={48} style={{ opacity: 0.4, marginBottom: '8px' }} />
-                  <span>항목을 선택하세요</span>
+                  <span style={{ fontSize: '13px' }}>항목을 선택하세요</span>
                 </div>
               )}
             </div>
 
             {selectedItem && (
-              <div style={{ fontSize: '12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', padding: '14px', borderRadius: 'var(--radius-sm)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ fontSize: '12.5px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', padding: '14px', borderRadius: 'var(--radius-sm)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <div>
-                  <div style={{ color: 'var(--text-dim)', fontSize: '11px', fontWeight: 600 }}>원본 파일명</div>
+                  <div style={{ color: 'var(--text-dim)', fontSize: '12px', fontWeight: 600 }}>원본 파일명</div>
                   <div style={{ fontWeight: 600, color: 'var(--text-main)', wordBreak: 'break-all', marginTop: '2px' }}>{selectedItem.original_filename}</div>
                 </div>
                 <div>
-                  <div style={{ color: 'var(--text-dim)', fontSize: '11px', fontWeight: 600 }}>표준 표준화 파일명</div>
+                  <div style={{ color: 'var(--text-dim)', fontSize: '12px', fontWeight: 600 }}>표준 표준화 파일명</div>
                   <div style={{ fontWeight: 700, color: 'var(--primary)', wordBreak: 'break-all', marginTop: '2px' }}>
                     {selectedItem.standard_filename || '(AI 명판 분석 대기 중)'}
                   </div>
@@ -370,13 +370,13 @@ export default function InspectionWorkspace({ project, onProjectUpdated, onOpenR
                         <td style={{ textAlign: 'center' }}>
                           <button 
                             className={`btn ${isSelected ? 'btn-primary' : 'btn-secondary'}`}
-                            style={{ padding: '4px 8px', fontSize: '11px' }}
+                            style={{ padding: '4px 9px', fontSize: '12px' }}
                             onClick={(e) => {
                               e.stopPropagation();
                               setSelectedItemIndex(idx);
                             }}
                           >
-                            <Eye size={12} /> 보기
+                            <Eye size={13} /> 보기
                           </button>
                         </td>
                       </tr>

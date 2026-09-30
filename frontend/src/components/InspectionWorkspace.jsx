@@ -126,75 +126,45 @@ export default function InspectionWorkspace({ project, onProjectUpdated, onOpenR
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {/* 상단 컨트롤 및 모드 네비게이션 */}
-      <div className="card" style={{ padding: '14px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="card" style={{ padding: '14px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <div>
-            <span style={{ fontSize: '18px', fontWeight: 800 }}>{project.name}</span>
+            <span style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.02em' }}>{project.name}</span>
             <span className="badge badge-primary" style={{ marginLeft: '10px' }}>
               총 {localItems.length}건
             </span>
           </div>
 
           {analyzing && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: '10px' }}>
-              <RefreshCw size={16} className="animate-spin" color="#3B82F6" />
-              <span style={{ fontSize: '13px', fontWeight: 600, color: '#60A5FA' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: '6px' }}>
+              <RefreshCw size={15} className="animate-spin" color="var(--primary)" />
+              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--primary)', fontVariantNumeric: 'tabular-nums' }}>
                 AI 분석 중 ({progress.current}/{progress.total}건, {progress.percentage}%)
               </span>
-              <div style={{ width: '100px', height: '6px', background: '#1E293B', borderRadius: '4px', overflow: 'hidden' }}>
-                <div style={{ width: `${progress.percentage}%`, height: '100%', background: '#3B82F6', transition: 'width 0.3s' }} />
+              <div style={{ width: '120px', height: '6px', background: '#E2E8F0', borderRadius: '9999px', overflow: 'hidden' }}>
+                <div style={{ width: `${progress.percentage}%`, height: '100%', background: 'var(--primary)', transition: 'width 0.3s ease' }} />
               </div>
             </div>
           )}
         </div>
 
-        {/* 3대 작업 모드 탭 전환 버튼 */}
-        <div style={{ display: 'flex', background: '#F1F5F9', padding: '4px', borderRadius: '8px', border: '1px solid #CBD5E1' }}>
+        {/* 3대 작업 모드 탭 (Mobbin / Linear 세그먼티드 컨트롤) */}
+        <div className="segmented-control">
           <button
             onClick={() => setActiveMode('editor')}
-            className="btn"
-            style={{
-              padding: '7px 15px',
-              fontSize: '13px',
-              fontWeight: 700,
-              borderRadius: '6px',
-              background: activeMode === 'editor' ? '#2563EB' : 'transparent',
-              color: activeMode === 'editor' ? '#FFFFFF' : '#475569',
-              boxShadow: activeMode === 'editor' ? '0 1px 3px rgba(0,0,0,0.15)' : 'none',
-              transition: 'all 0.2s'
-            }}
+            className={`segmented-tab ${activeMode === 'editor' ? 'active' : ''}`}
           >
-            <Edit3 size={14} /> ① AI 명판 검수 에디터
+            <Edit3 size={14} /> ① AI 명판 검수
           </button>
           <button
             onClick={() => setActiveMode('preview')}
-            className="btn"
-            style={{
-              padding: '7px 15px',
-              fontSize: '13px',
-              fontWeight: 700,
-              borderRadius: '6px',
-              background: activeMode === 'preview' ? '#059669' : 'transparent',
-              color: activeMode === 'preview' ? '#FFFFFF' : '#475569',
-              boxShadow: activeMode === 'preview' ? '0 1px 3px rgba(0,0,0,0.15)' : 'none',
-              transition: 'all 0.2s'
-            }}
+            className={`segmented-tab ${activeMode === 'preview' ? 'active' : ''}`}
           >
-            <FileSpreadsheet size={14} /> ② 마스터 엑셀 미리보기
+            <FileSpreadsheet size={14} /> ② 마스터 엑셀 뷰어
           </button>
           <button
             onClick={() => setActiveMode('logs')}
-            className="btn"
-            style={{
-              padding: '7px 15px',
-              fontSize: '13px',
-              fontWeight: 700,
-              borderRadius: '6px',
-              background: activeMode === 'logs' ? '#7C3AED' : 'transparent',
-              color: activeMode === 'logs' ? '#FFFFFF' : '#475569',
-              boxShadow: activeMode === 'logs' ? '0 1px 3px rgba(0,0,0,0.15)' : 'none',
-              transition: 'all 0.2s'
-            }}
+            className={`segmented-tab ${activeMode === 'logs' ? 'active' : ''}`}
           >
             <Terminal size={14} /> ③ 실시간 작업 로그
           </button>
@@ -203,7 +173,7 @@ export default function InspectionWorkspace({ project, onProjectUpdated, onOpenR
         {/* 우측 상단 액션 버튼군 */}
         <div style={{ display: 'flex', gap: '8px' }}>
           <button className="btn btn-secondary" onClick={() => setIsTemplateModalOpen(true)} title="마스터 엑셀 템플릿 관리">
-            <FileSpreadsheet size={16} color="#10B981" /> 마스터 템플릿
+            <FileSpreadsheet size={15} color="var(--primary)" /> 마스터 템플릿
           </button>
           <input 
             type="file" 
@@ -214,10 +184,10 @@ export default function InspectionWorkspace({ project, onProjectUpdated, onOpenR
             onChange={(e) => handleFileUpload(e.target.files)} 
           />
           <button className="btn btn-secondary" onClick={() => fileInputRef.current?.click()} disabled={uploading}>
-            <UploadCloud size={16} /> {uploading ? '업로드 중...' : '영상/사진 추가'}
+            <UploadCloud size={15} /> {uploading ? '업로드 중...' : '영상/사진 추가'}
           </button>
           <button className="btn btn-primary" onClick={handleStartAnalysis} disabled={analyzing || localItems.length === 0}>
-            <Play size={16} /> AI 일괄 분석
+            <Play size={15} /> AI 일괄 분석
           </button>
         </div>
       </div>
@@ -261,12 +231,16 @@ export default function InspectionWorkspace({ project, onProjectUpdated, onOpenR
             </div>
 
             {selectedItem && (
-              <div style={{ fontSize: '12px', background: 'rgba(0,0,0,0.2)', padding: '12px', borderRadius: '6px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                <div style={{ color: 'var(--text-dim)' }}>원본 파일:</div>
-                <div style={{ fontWeight: 600, wordBreak: 'break-all' }}>{selectedItem.original_filename}</div>
-                <div style={{ color: 'var(--text-dim)', marginTop: '4px' }}>표준 파일명:</div>
-                <div style={{ fontWeight: 600, color: '#60A5FA', wordBreak: 'break-all' }}>
-                  {selectedItem.standard_filename || '(검수 중)'}
+              <div style={{ fontSize: '12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', padding: '14px', borderRadius: 'var(--radius-sm)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div>
+                  <div style={{ color: 'var(--text-dim)', fontSize: '11px', fontWeight: 600 }}>원본 파일명</div>
+                  <div style={{ fontWeight: 600, color: 'var(--text-main)', wordBreak: 'break-all', marginTop: '2px' }}>{selectedItem.original_filename}</div>
+                </div>
+                <div>
+                  <div style={{ color: 'var(--text-dim)', fontSize: '11px', fontWeight: 600 }}>표준 표준화 파일명</div>
+                  <div style={{ fontWeight: 700, color: 'var(--primary)', wordBreak: 'break-all', marginTop: '2px' }}>
+                    {selectedItem.standard_filename || '(AI 명판 분석 대기 중)'}
+                  </div>
                 </div>
               </div>
             )}
@@ -275,11 +249,11 @@ export default function InspectionWorkspace({ project, onProjectUpdated, onOpenR
           {/* 우측: 현장 등록 옵션 드롭다운 검수 테이블 */}
           <div className="table-panel">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: '14px', fontWeight: 700 }}>
-                검수 및 수정 테이블 <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 400 }}>(수정 시 500ms 실시간 자동저장)</span>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-main)', letterSpacing: '-0.01em' }}>
+                명판 검수 및 배관 사양 테이블 <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 400 }}>(실시간 자동저장)</span>
               </span>
-              <span style={{ fontSize: '12px', color: '#10B981', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <CheckCircle2 size={14} /> 자동저장 활성화됨
+              <span className="badge badge-success">
+                <CheckCircle2 size={13} /> 자동저장 활성화
               </span>
             </div>
 

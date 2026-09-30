@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, UploadCloud, FileSpreadsheet, RotateCcw, Check, Download, AlertCircle } from 'lucide-react';
+import { X, UploadCloud, FileSpreadsheet, RotateCcw, CheckCircle2, Download, AlertCircle } from 'lucide-react';
 
 export default function TemplateUploadModal({ isOpen, onClose, projectId, onTemplateChanged }) {
   const [templateInfo, setTemplateInfo] = useState(null);
@@ -42,7 +42,7 @@ export default function TemplateUploadModal({ isOpen, onClose, projectId, onTemp
         body: formData
       });
       if (res.ok) {
-        alert('마스터 엑셀 서식 템플릿이 성공적으로 등록되었습니다!');
+        alert('마스터 엑셀 서식 템플릿이 성공적으로 등록되었습니다.');
         fetchTemplateInfo();
         onTemplateChanged?.();
       } else {
@@ -70,39 +70,32 @@ export default function TemplateUploadModal({ isOpen, onClose, projectId, onTemp
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" style={{ maxWidth: '560px' }} onClick={e => e.stopPropagation()}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+      <div className="modal-card" onClick={e => e.stopPropagation()}>
+        <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <FileSpreadsheet size={22} color="#10B981" />
-            <h3 style={{ fontSize: '18px', fontWeight: 800 }}>현장 마스터 엑셀 서식 템플릿 관리</h3>
+            <FileSpreadsheet size={20} color="var(--primary)" />
+            <h3 className="modal-title">현장 마스터 엑셀 서식 관리</h3>
           </div>
-          <button className="btn-icon" onClick={onClose}>
-            <X size={20} />
+          <button className="btn btn-secondary" onClick={onClose} style={{ padding: '5px' }}>
+            <X size={16} />
           </button>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* 현재 템플릿 상태 */}
-          <div style={{ background: '#0F172A', padding: '16px', borderRadius: '8px', border: '1px solid #1E293B' }}>
-            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>현재 적용 중인 마스터 엑셀 양식:</div>
-            <div style={{ fontSize: '15px', fontWeight: 700, marginTop: '4px', color: '#60A5FA', wordBreak: 'break-all' }}>
+          <div style={{ background: 'var(--bg-main)', padding: '16px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>현재 적용 중인 마스터 엑셀 서식:</div>
+            <div style={{ fontSize: '15px', fontWeight: 700, marginTop: '4px', color: 'var(--text-main)', wordBreak: 'break-all' }}>
               {templateInfo ? templateInfo.filename : '조회 중...'}
             </div>
-            <div style={{ fontSize: '12px', color: '#10B981', marginTop: '6px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Check size={14} /> 보고서 출력 시 해당 서식의 시트 및 수식, 서식이 100% 보존되어 생성됩니다.
+            <div style={{ fontSize: '12px', color: 'var(--success-text)', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <CheckCircle2 size={14} color="var(--success)" /> 보고서 생성 시 해당 서식의 시트, 셀 크기, 수식이 100% 매핑됩니다.
             </div>
           </div>
 
           {/* 파일 업로드 드롭존 */}
           <div 
-            style={{ 
-              border: '2px dashed #3B82F6', 
-              borderRadius: '8px', 
-              padding: '30px 20px', 
-              textAlign: 'center',
-              background: 'rgba(59, 130, 246, 0.05)',
-              cursor: 'pointer'
-            }}
+            className="upload-dropzone"
             onClick={() => fileInputRef.current?.click()}
           >
             <input 
@@ -112,19 +105,21 @@ export default function TemplateUploadModal({ isOpen, onClose, projectId, onTemp
               style={{ display: 'none' }}
               onChange={(e) => handleFileUpload(e.target.files)} 
             />
-            <UploadCloud size={36} color="#3B82F6" style={{ margin: '0 auto 10px auto' }} />
-            <div style={{ fontSize: '15px', fontWeight: 700 }}>신규 마스터 엑셀 파일(.xlsx) 업로드</div>
+            <UploadCloud size={36} color="var(--primary)" style={{ margin: '0 auto 10px auto' }} />
+            <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-main)' }}>
+              {uploading ? '서식 파일 업로드 중...' : '새로운 마스터 서식(.xlsx) 업로드'}
+            </div>
             <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
-              클릭하거나 파일을 이곳에 드래그하여 현장 맞춤 엑셀 서식을 등록하세요.
+              클릭하거나 엑셀 파일을 드래그하여 현장 전용 양식을 등록하세요.
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
             <button className="btn btn-secondary" onClick={handleReset} style={{ fontSize: '13px' }}>
-              <RotateCcw size={14} /> 기본 템플릿으로 복원
+              <RotateCcw size={14} /> 기본 서식으로 복원
             </button>
             <button className="btn btn-primary" onClick={onClose}>
-              닫기
+              완료
             </button>
           </div>
         </div>

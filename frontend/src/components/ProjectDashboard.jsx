@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, FolderOpen, AlertTriangle, CheckCircle, Calendar, ArrowRight, Building } from 'lucide-react';
+import { Plus, AlertTriangle, CheckCircle2, Calendar, ArrowRight, Building2, HardHat, FileSpreadsheet } from 'lucide-react';
 
 export default function ProjectDashboard({ onSelectProject }) {
   const [projects, setProjects] = useState([]);
@@ -49,63 +49,78 @@ export default function ProjectDashboard({ onSelectProject }) {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+      {/* 대시보드 타이틀 영역 */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '28px', borderBottom: '1px solid var(--border-color)', paddingBottom: '20px' }}>
         <div>
-          <h2 style={{ fontSize: '24px', fontWeight: 800, letterSpacing: '-0.5px' }}>건설 현장 프로젝트 관리</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+            <HardHat size={20} color="var(--primary)" />
+            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--primary)', letterSpacing: '-0.01em' }}>현장 관리 콘솔</span>
+          </div>
+          <h2 style={{ fontSize: '26px', fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--text-main)' }}>배관 내시경 검사 프로젝트</h2>
           <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '4px' }}>
-            작업 중인 현장을 선택하여 이어하거나 새 배관 검사 현장을 생성하세요.
+            현장을 선택하여 AI 검수를 이어하거나 신규 공사 현장을 등록하세요.
           </p>
         </div>
-        <button className="btn btn-primary" onClick={() => setShowCreateModal(true)} style={{ padding: '10px 20px' }}>
-          <Plus size={18} /> 새 현장 프로젝트 생성
+        <button className="btn btn-primary" onClick={() => setShowCreateModal(true)} style={{ padding: '9px 18px', fontSize: '14px' }}>
+          <Plus size={16} /> 신규 현장 등록
         </button>
       </div>
 
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '60px', color: 'var(--text-muted)' }}>현장 목록을 불러오는 중...</div>
+        <div style={{ textAlign: 'center', padding: '80px 20px', color: 'var(--text-muted)' }}>
+          <div style={{ fontSize: '14px', fontWeight: 600 }}>현장 프로젝트 목록을 불러오는 중입니다...</div>
+        </div>
       ) : projects.length === 0 ? (
-        <div className="card" style={{ textAlign: 'center', padding: '60px 20px' }}>
-          <Building size={48} color="#3B82F6" style={{ margin: '0 auto 16px' }} />
-          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '8px' }}>등록된 현장이 없습니다</h3>
-          <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '20px' }}>
-            첫 번째 배관 검사 현장 프로젝트를 생성하여 시작해 보세요.
+        <div className="card" style={{ textAlign: 'center', padding: '64px 20px', maxWidth: '520px', margin: '40px auto' }}>
+          <div style={{ width: '56px', height: '56px', borderRadius: '12px', background: 'var(--primary-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: 'var(--primary)' }}>
+            <Building2 size={28} />
+          </div>
+          <h3 style={{ fontSize: '18px', fontWeight: 800, marginBottom: '8px', color: 'var(--text-main)' }}>등록된 현장이 없습니다</h3>
+          <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: 1.6 }}>
+            첫 번째 배관 검사 현장 프로젝트를 생성하여 동영상 및 사진을 업로드해 보세요.
           </p>
           <button className="btn btn-primary" onClick={() => setShowCreateModal(true)}>
-            <Plus size={16} /> 새 현장 만들기
+            <Plus size={16} /> 신규 현장 등록하기
           </button>
         </div>
       ) : (
         <div className="dashboard-grid">
-          {projects.map((p) => (
-            <div key={p.id} className="project-card" onClick={() => onSelectProject(p.id)}>
-              <div className="project-card-header">
-                <span className="project-name">{p.name}</span>
-                <span className="badge badge-primary">작업 중</span>
-              </div>
-
-              <div className="project-stats">
-                <div className="stat-item">
-                  <span className="stat-label">총 검사 항목</span>
-                  <span className="stat-value" style={{ color: '#60A5FA' }}>{p.total_items}건</span>
+          {projects.map((p) => {
+            const hasDefect = p.defect_count > 0;
+            return (
+              <div key={p.id} className="project-card" onClick={() => onSelectProject(p.id)}>
+                <div className="project-card-header">
+                  <span className="project-name">{p.name}</span>
+                  <span className="badge badge-neutral">
+                    작업 진행 중
+                  </span>
                 </div>
-                <div className="stat-item" style={{ marginLeft: 'auto' }}>
-                  <span className="stat-label">이상 배관 발견</span>
-                  <span className="stat-value" style={{ color: p.defect_count > 0 ? '#F59E0B' : '#10B981' }}>
-                    {p.defect_count}건
+
+                <div className="project-stats">
+                  <div className="stat-item">
+                    <span className="stat-label">총 검사항목</span>
+                    <span className="stat-value" style={{ color: 'var(--text-main)' }}>{p.total_items}건</span>
+                  </div>
+                  <div className="stat-item" style={{ marginLeft: 'auto' }}>
+                    <span className="stat-label">이상 배관</span>
+                    <span className="stat-value" style={{ color: hasDefect ? 'var(--warning-text)' : 'var(--success-text)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      {hasDefect ? <AlertTriangle size={15} color="var(--warning)" /> : <CheckCircle2 size={15} color="var(--success)" />}
+                      {p.defect_count}건
+                    </span>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '12px', borderTop: '1px solid #F1F5F9' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'var(--text-dim)', fontVariantNumeric: 'tabular-nums' }}>
+                    <Calendar size={13} /> {p.created_at?.slice(0, 10)}
+                  </div>
+                  <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    검수 에디터 열기 <ArrowRight size={13} />
                   </span>
                 </div>
               </div>
-
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: 'var(--text-dim)' }}>
-                  <Calendar size={12} /> {p.created_at?.slice(0, 10)}
-                </div>
-                <span style={{ fontSize: '12px', fontWeight: 600, color: '#3B82F6', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  열기 / 이어하기 <ArrowRight size={13} />
-                </span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
@@ -114,7 +129,7 @@ export default function ProjectDashboard({ onSelectProject }) {
         <div className="modal-overlay">
           <div className="modal-card">
             <div className="modal-header">
-              <h3 className="modal-title">새 배관 검사 현장 생성</h3>
+              <h3 className="modal-title">신규 배관 검사 현장 등록</h3>
             </div>
             <form onSubmit={handleCreate}>
               <div className="form-group">
@@ -129,13 +144,13 @@ export default function ProjectDashboard({ onSelectProject }) {
                   required 
                 />
               </div>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '20px' }}>
-                생성 후 현장 설정에서 동/호수 및 배관명 목록을 자유롭게 커스텀할 수 있습니다.
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '22px', lineHeight: 1.5 }}>
+                • 현장 생성 후 상단 설정 메뉴에서 동/호수 및 배관명 목록을 자유롭게 커스텀할 수 있습니다.
               </div>
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
                 <button type="button" className="btn btn-secondary" onClick={() => setShowCreateModal(false)}>취소</button>
                 <button type="submit" className="btn btn-primary" disabled={creating}>
-                  {creating ? '생성 중...' : '현장 생성 및 시작'}
+                  {creating ? '등록 중...' : '현장 생성 및 시작'}
                 </button>
               </div>
             </form>

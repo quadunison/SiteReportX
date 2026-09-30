@@ -56,24 +56,24 @@ export default function ApiKeyModal({ isOpen, onClose }) {
           기존 TaskieX 폴더(`gemini-api-key`, `vision-api-key`, `chatgpt-api-key`)의 키가 자동으로 감지됩니다.
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'rgba(0,0,0,0.2)', borderRadius: '6px' }}>
-            <span style={{ fontSize: '13px' }}>Google Cloud Vision API (JSON)</span>
-            <span className={`badge ${keyStatus.google_vision_configured ? 'badge-success' : 'badge-warning'}`}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)' }}>
+            <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-main)' }}>Google Cloud Vision API (JSON)</span>
+            <span className={`badge ${keyStatus.google_vision_configured ? 'badge-success' : 'badge-neutral'}`}>
               {keyStatus.google_vision_configured ? '감지됨 ✓' : '미설정'}
             </span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'rgba(0,0,0,0.2)', borderRadius: '6px' }}>
-            <span style={{ fontSize: '13px' }}>Google Gemini 1.5 Flash API</span>
-            <span className={`badge ${keyStatus.gemini_configured ? 'badge-success' : 'badge-warning'}`}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)' }}>
+            <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-main)' }}>Google Gemini 1.5 Flash API</span>
+            <span className={`badge ${keyStatus.gemini_configured ? 'badge-success' : 'badge-neutral'}`}>
               {keyStatus.gemini_configured ? '감지됨 ✓' : '미설정'}
             </span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'rgba(0,0,0,0.2)', borderRadius: '6px' }}>
-            <span style={{ fontSize: '13px' }}>OpenAI GPT-4o-mini API</span>
-            <span className={`badge ${keyStatus.openai_configured ? 'badge-success' : 'badge-warning'}`}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-sm)' }}>
+            <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-main)' }}>OpenAI GPT-4o-mini API</span>
+            <span className={`badge ${keyStatus.openai_configured ? 'badge-success' : 'badge-neutral'}`}>
               {keyStatus.openai_configured ? '감지됨 ✓' : '미설정'}
             </span>
           </div>

@@ -46,11 +46,11 @@ export default function ProjectSettingsModal({ isOpen, onClose, project, onSetti
       <div className="modal-card" style={{ maxWidth: '650px' }}>
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Settings size={20} color="#3B82F6" />
+            <Settings size={20} color="var(--primary)" />
             <h3 className="modal-title">[{project.name}] 현장 항목 커스텀 설정</h3>
           </div>
-          <button className="btn btn-secondary" onClick={onClose} style={{ padding: '4px' }}>
-            <X size={18} />
+          <button className="btn btn-secondary" onClick={onClose} style={{ padding: '5px' }}>
+            <X size={16} />
           </button>
         </div>
 

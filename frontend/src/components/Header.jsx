@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layers, Key, Home, Settings as SettingsIcon, FileSpreadsheet } from 'lucide-react';
+import { Layers, Key, ChevronLeft, Settings as SettingsIcon, Download, ShieldCheck } from 'lucide-react';
 import ApiKeyModal from './ApiKeyModal';
 
 export default function Header({ currentProject, onGoHome, onOpenSettings, onOpenExport }) {
@@ -7,11 +7,13 @@ export default function Header({ currentProject, onGoHome, onOpenSettings, onOpe
 
   return (
     <header className="header">
-      <div className="logo-area" onClick={onGoHome}>
-        <div className="logo-icon">SR</div>
-        <div>
+      <div className="logo-area" onClick={onGoHome} title="홈으로 이동">
+        <div className="logo-icon">
+          <Layers size={18} strokeWidth={2.4} />
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="logo-title">SiteReportX</span>
-          <span className="logo-badge" style={{ marginLeft: '8px' }}>배관내시경</span>
+          <span className="logo-badge">Industrial Pro</span>
         </div>
       </div>
 
@@ -19,13 +21,13 @@ export default function Header({ currentProject, onGoHome, onOpenSettings, onOpe
         {currentProject && (
           <>
             <button className="btn btn-secondary" onClick={onGoHome}>
-              <Home size={15} /> 현장 목록
+              <ChevronLeft size={15} /> 현장 목록
             </button>
             <button className="btn btn-secondary" onClick={onOpenSettings}>
               <SettingsIcon size={15} /> 현장 설정
             </button>
-            <button className="btn btn-success" onClick={onOpenExport}>
-              <FileSpreadsheet size={15} /> 보고서 출력
+            <button className="btn btn-primary" onClick={onOpenExport}>
+              <Download size={15} /> 보고서 출력
             </button>
           </>
         )}

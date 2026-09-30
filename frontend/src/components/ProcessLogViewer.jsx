@@ -64,19 +64,19 @@ export default function ProcessLogViewer({ projectId, analyzing }) {
     <div className="card" style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Terminal size={18} color="#3B82F6" />
-          <span style={{ fontSize: '15px', fontWeight: 700 }}>TaskieX 실시간 작업 로그 콘솔</span>
+          <Terminal size={18} color="var(--primary)" />
+          <span style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-main)', letterSpacing: '-0.01em' }}>실시간 분석 및 작업 로그</span>
           {analyzing && (
             <span className="badge badge-primary" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <RefreshCw size={12} className="animate-spin" /> 실시간 기록 중...
+              <RefreshCw size={12} className="animate-spin" /> 기록 중
             </span>
           )}
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '12px' }} onClick={handleCopyLogs}>
-            {copied ? <Check size={14} color="#10B981" /> : <Copy size={14} />} {copied ? '복사됨' : '전체 복사'}
+            {copied ? <Check size={14} color="var(--success)" /> : <Copy size={14} />} {copied ? '복사 완료' : '전체 복사'}
           </button>
-          <button className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '12px', color: '#EF4444' }} onClick={handleClearLogs}>
+          <button className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '12px', color: 'var(--danger)' }} onClick={handleClearLogs}>
             <Trash2 size={14} /> 로그 지우기
           </button>
         </div>

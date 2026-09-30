@@ -20,9 +20,12 @@
 - **정상/완료 상태**: 과도한 형광색이 아닌 단정한 **Sage Emerald (`#059669`, Soft BG: `#ECFDF5`)** 적용
 
 ### 2) 타이포그래피 & 수치 가독성 극대화
+- **최소 폰트 크기 10px 이상 엄격 보장**:
+  - CSS 전역 규칙(`span, p, label, a, button, input, select, textarea, div, th, td, small: font-size: max(10px, inherit)`)을 통해 모든 디바이스/줌 환경에서 10px 미만으로 축소되지 않도록 가드 적용
+  - 기존 11px로 다소 작았던 뱃지(`.badge`, `.logo-badge`), 테이블 카운터, 안내 힌트 문구, 버튼 폰트를 모두 **12px ~ 13px**로 상향하여 또렷한 가독성 확보
 - 고해상도 Pretendard 글꼴 렌더링에 `-webkit-font-smoothing: antialiased` 적용
 - 검사 건수, 결함 수치, 동/호수 데이터에 `font-variant-numeric: tabular-nums`를 강제하여 자릿수 흔들림 없는 고정폭 수치 가독성 확보
-- 자간을 `-0.02em`으로 쫀쫀하게 조여 모던 소프트웨어다운 단단한 인상 부여
+- 자간을 `-0.01em ~ -0.02em`으로 쫀쫀하게 조여 모던 소프트웨어다운 단단한 인상 부여
 
 ### 3) Mobbin 스타일 컴포넌트 리파인
 - **Header**: 미니멀 인더스트리얼 엠블럼(`Layers` 아이콘) 및 반투명 블러 백드롭(`backdrop-filter: blur(8px)`) 적용
